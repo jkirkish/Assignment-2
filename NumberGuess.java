@@ -16,45 +16,48 @@ public class NumberGuess {
 		actualNumber = generator.nextInt(100) + 1;
 		// instance of a Scanner object to allow user input of numbers
 		Scanner input = new Scanner(System.in);
-
+		boolean win = false;
 		/*
 		 * Prompt the user to pick a number between 1 and 100 The range from 1 to 100 is
 		 * inclusive, so the number can be 1, or 100 or any number in-between. No floats
 		 * or doubles. guess is an int variable that stores the value the user inputed
 		 * from scanner object
 		 */
-		System.out.print("Pick a number between 1 and 100: ");
-		guess = input.nextInt();
+		
 
 		// trials is the number of attempts. nor more than 5 guesses within the number
 		// range
 		int trials = 0;
 		while (trials < 5) {
+			System.out.print("Pick a number between 1 and 100: ");
+			guess = input.nextInt();
+			
 			if (guess < 1 || guess > 100) { // when guess is outside the specified range
 				System.err.println("Your guess is not between 1 and 100, please try again");
-				guess = input.nextInt();
 			} else if (guess >= 1 && guess <= 100) {
 				// when guess is inside the specified range
 				 if (guess < actualNumber) {
 					// if the number they chose is lower than the randomly generated number
-					System.out.print((trials + 1) + ": Please pick a higher number:");
-					guess = input.nextInt();
+					System.out.println((trials + 1) + ": Please pick a higher number:");
+					trials++;
 				} else if (guess > actualNumber) {
 					// if the number they chose is higher than the randomly generated number
-					System.out.print((trials + 1) + ": Please pick a lower number: ");
-					guess = input.nextInt();
+					System.out.println((trials + 1) + ": Please pick a lower number: ");
+					trials++;
 				} else if (guess == actualNumber) {
 					// if the user picks the correct number then we have a winner
-					System.out.println("You win!");
+					win = true;
 					break;
 				} 
 			}
-			trials++;
+			
 		} // end of while loop
 		
 		
-		 if (trials == 5) {
+		 if (win) {
 			// if the number of tries reaches 5. the player loses and game ends
+			System.out.println("You win!");
+		}else {
 			System.out.println("You lose, the number to guess was " + actualNumber);
 		}
 		// close the scanner object
